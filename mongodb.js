@@ -76,12 +76,22 @@ MongoClient.connect(connectionURL, { useNewUrlParser: true }, (error, client) =>
     //     console.log(user);
     // })
 
-    db.collection('users').find({age: 24}).toArray((error, users) => {
-        console.log(users);
-    });
+    // db.collection('users').find({age: 24}).toArray((error, users) => {
+    //     console.log(users);
+    // });
 
-    db.collection('users').find({age: 24}).count((error, count) => {
-        console.log(count);
-    });
+    // db.collection('users').find({age: 24}).count((error, count) => {
+    //     console.log(count);
+    // });
+
+    // Challenge 1: Use findOne to fetch last task by its id
+    db.collection('tasks').findOne({_id: new ObjectID("5d1136cc483a79aacccc0014")}, (error, task) => {
+        console.log(task);
+    })
+
+    // Challenge 2: Use find to fetch all tasks that are not completed
+    db.collection('tasks').find({completed: false}).toArray((error, tasks) => {
+        console.log(tasks);
+    })
 
 }); 
