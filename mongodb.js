@@ -68,12 +68,20 @@ MongoClient.connect(connectionURL, { useNewUrlParser: true }, (error, client) =>
     
     // Fetching Data out of the database
 
-    db.collection('users').findOne({ _id: new ObjectID('5d113ceb469cfcacd327f24e')}, (error, user) => {
-        if(error) {
-            return console.log('Unable to fetch');
-        }
+    // db.collection('users').findOne({ _id: new ObjectID('5d113ceb469cfcacd327f24e')}, (error, user) => {
+    //     if(error) {
+    //         return console.log('Unable to fetch');
+    //     }
 
-        console.log(user);
-    })
+    //     console.log(user);
+    // })
+
+    db.collection('users').find({age: 24}).toArray((error, users) => {
+        console.log(users);
+    });
+
+    db.collection('users').find({age: 24}).count((error, count) => {
+        console.log(count);
+    });
 
 }); 
