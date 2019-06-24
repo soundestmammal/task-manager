@@ -27,19 +27,39 @@ MongoClient.connect(connectionURL, { useNewUrlParser: true }, (error, client) =>
     //     console.log(result.ops);
     // })
 
-    db.collection('users').insertMany([
+    // db.collection('users').insertMany([
+    //     {
+    //         name: 'Alg',
+    //         age: 28
+    //     }, {
+    //         name: 'Ben',
+    //         age: 85
+    //     }
+    // ], (error, result) => {
+    //     if (error) {
+    //         return console.log('There was an error');
+    //     }
+
+    //     console.log(result.ops);
+    // })
+
+    db.collection('tasks').insertMany([
         {
-            name: 'Alg',
-            age: 28
-        }, {
-            name: 'Ben',
-            age: 85
+            description: 'Walk the dog',
+            completed: false
+        },
+        {
+            description: 'Do the laundry',
+            completed: true
+        },
+        {
+            description: 'Algorithms',
+            completed: true
         }
     ], (error, result) => {
-        if (error) {
-            return console.log('There was an error');
-        }
+        if (error) return console.log('There was a problem');
 
+        console.log('Everything was added correctly!!!');
         console.log(result.ops);
     })
 }); 
