@@ -97,8 +97,8 @@ MongoClient.connect(connectionURL, { useNewUrlParser: true }, (error, client) =>
     db.collection('users').updateOne({
         _id: new ObjectID("5d1134d61d1e9faa222fc300")
     }, {
-        $set: {
-            name: 'Mike'
+        $inc: {
+            age: 1
         }
     }).then((result) => {
         console.log(result);
