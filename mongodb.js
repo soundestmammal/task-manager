@@ -94,15 +94,33 @@ MongoClient.connect(connectionURL, { useNewUrlParser: true }, (error, client) =>
     //     console.log(tasks);
     // })
 
-    db.collection('users').updateOne({
-        _id: new ObjectID("5d1134d61d1e9faa222fc300")
-    }, {
-        $inc: {
-            age: 1
+    // db.collection('users').updateOne({
+    //     _id: new ObjectID("5d1134d61d1e9faa222fc300")
+    // }, {
+    //     $inc: {
+    //         age: 1
+    //     }
+    // }).then((result) => {
+    //     console.log(result);
+    // }).catch((error) => {
+    //     console.log(error);
+    // })
+
+    // Challenge:
+    /*
+    1. Check the docs for updateMany
+    2. Setup the call with the query and the updates
+    3. Use promise methods to setup the success/error handlers
+    4. Test your work!
+    */
+    db.collection('tasks').updateMany({}, {
+        $set: {
+            completed: true
         }
     }).then((result) => {
-        console.log(result);
+        console.log('This was successful', result);
     }).catch((error) => {
-        console.log(error);
+        console.log('ERROR!!!', error);
     })
+
 }); 
