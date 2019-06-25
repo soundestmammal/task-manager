@@ -84,14 +84,25 @@ MongoClient.connect(connectionURL, { useNewUrlParser: true }, (error, client) =>
     //     console.log(count);
     // });
 
-    // Challenge 1: Use findOne to fetch last task by its id
-    db.collection('tasks').findOne({_id: new ObjectID("5d1136cc483a79aacccc0014")}, (error, task) => {
-        console.log(task);
-    })
+    // // Challenge 1: Use findOne to fetch last task by its id
+    // db.collection('tasks').findOne({_id: new ObjectID("5d1136cc483a79aacccc0014")}, (error, task) => {
+    //     console.log(task);
+    // })
 
-    // Challenge 2: Use find to fetch all tasks that are not completed
-    db.collection('tasks').find({completed: false}).toArray((error, tasks) => {
-        console.log(tasks);
-    })
+    // // Challenge 2: Use find to fetch all tasks that are not completed
+    // db.collection('tasks').find({completed: false}).toArray((error, tasks) => {
+    //     console.log(tasks);
+    // })
 
+    db.collection('users').updateOne({
+        _id: new ObjectID("5d1134d61d1e9faa222fc300")
+    }, {
+        $set: {
+            name: 'Mike'
+        }
+    }).then((result) => {
+        console.log(result);
+    }).catch((error) => {
+        console.log(error);
+    })
 }); 
