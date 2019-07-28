@@ -3,9 +3,6 @@ CRUD Operations
 Create, Read, Update, Delete
 */
 
-// const mongodb = require('mongodb');
-// const MongoClient = mongodb.MongoClient;
-
 // Good time to use Destructuring
 const { MongoClient, ObjectID } = require('mongodb');
 
