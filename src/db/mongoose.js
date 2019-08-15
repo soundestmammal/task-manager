@@ -31,6 +31,18 @@ const User = mongoose.model('User', {
                 throw new Error("This is not a valid email!");
             }
         }
+    },
+    password: {
+        type: String,
+        requried: true,
+        minlength: 7,
+        trim: true,
+        lowercase: true,
+        validate(value) {
+            if(value.includes("password")) {
+                throw new Error("Your password can not contain the word password...");
+            }
+        }
     }
 });
 
@@ -38,7 +50,8 @@ const me = new User(
     {
         name: 'Roberto',
         age: 56,
-        email: "roberto@email.com"
+        email: "roberto@email.com",
+        password: "password"
      })
 
 me.save().then((me) => {
