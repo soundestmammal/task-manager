@@ -39,7 +39,7 @@ const User = mongoose.model('User', {
         trim: true,
         lowercase: true,
         validate(value) {
-            if(value.includes("password")) {
+            if(value.toLowercase().includes("password")) {
                 throw new Error("Your password can not contain the word password...");
             }
         }
@@ -54,11 +54,11 @@ const me = new User(
         password: "password"
      })
 
-me.save().then((me) => {
-    console.log(me);
-}).catch((error) => {
-    console.log("Error: ", error);
-});
+// me.save().then((me) => {
+//     console.log(me);
+// }).catch((error) => {
+//     console.log("Error: ", error);
+// });
 
 /* 
 
@@ -69,14 +69,22 @@ Goal: Create a model for tasks
 3. Save the model to the database
 4. Test your work
 
+Next Challenge:
+
+1. (Description) Eliminate the whitespace and make it required
+2. Make completed optional and set default value to false
+3. Test the work.
 */
 
 const Tasks = mongoose.model('Tasks', {
     description: {
-        type: String
+        type: String,
+        required: true,
+        trim: true
     },
     completed: {
-        type: Boolean
+        type: Boolean,
+        default: false
     }
 });
 
@@ -85,8 +93,8 @@ const july26 = new Tasks({
     completed: false
 });
 
-// july26.save().then((july26) => {
-//     console.log("This was a success", july26);
-// }).catch((error) => {
-//     console.log("There was an error, I am so sorry to tell you", error);
-// });
+july26.save().then((july26) => {
+    console.log("This was a success", july26);
+}).catch((error) => {
+    console.log("There was an error, I am so sorry to tell you", error);
+});
