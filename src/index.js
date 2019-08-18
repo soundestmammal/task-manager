@@ -77,6 +77,33 @@ app.get('/tasks/:id', async (req, res) => {
     }
 });
 
+app.patch('/tasks/:id', async (req, res) => {
+    const _id = req.params.id;
+
+    try {
+        const task = await Task.findByIdAndUpdate(_id, { description: "Change the name of it!" });
+        if(!task) {
+            return res.status(404).send();
+        }
+    } catch(e) {
+        res.status(500).send();
+    }
+});
+
+app.patch('/users/:id', async (req, res) => {
+    const _id = req.params.id;
+
+    try {
+        const user = await User.findByIdAndUpdate(_id, req.body, {new: true, runValidators: true});
+        if(!user) {
+            return res.status(404).send();
+        }
+        res.send(user);
+    } catch(e) {
+        res.status(400).send();
+    }
+})
+
 app.listen(PORT, () => {
     console.log("Server is up on the port");
 });
