@@ -81,12 +81,13 @@ app.patch('/tasks/:id', async (req, res) => {
     const _id = req.params.id;
 
     try {
-        const task = await Task.findByIdAndUpdate(_id, { description: "Change the name of it!" });
+        const task = await Task.findByIdAndUpdate(_id, req.body, {new: true, runValidators: true });
         if(!task) {
             return res.status(404).send();
         }
+        res.send(user);
     } catch(e) {
-        res.status(500).send();
+        res.status(400).send();
     }
 });
 
@@ -99,6 +100,7 @@ app.patch('/users/:id', async (req, res) => {
             return res.status(404).send();
         }
         res.send(user);
+
     } catch(e) {
         res.status(400).send();
     }
