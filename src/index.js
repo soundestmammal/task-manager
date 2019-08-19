@@ -145,10 +145,10 @@ app.delete('/tasks/:id', async(req, res) => {
 
     try {
         const task = await Task.findByIdAndDelete(_id);
-        if(!user) {
+        if(!task) {
             return res.status(404).send();
         }
-        res.send(user);
+        res.send(task);
     } catch(e) {
         res.status(400).send();
     }
