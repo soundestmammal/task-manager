@@ -80,14 +80,26 @@ app.get('/tasks/:id', async (req, res) => {
 app.patch('/tasks/:id', async (req, res) => {
     const _id = req.params.id;
 
+    const updates = Object.keys(req.body);
+    const allowedUpdates = ['description', 'completed'];
+    const isValidOperation = updates.every((update) => {
+        return allowedUpdates.includes(update);
+    });
+
+    if(!isValidOperation) {
+        return res.status(400).send({ error: "Invalid Update to a task"});
+        console.log("This is here");
+    }
+
     try {
         const task = await Task.findByIdAndUpdate(_id, req.body, {new: true, runValidators: true });
         if(!task) {
             return res.status(404).send();
         }
-        res.send(user);
+        res.send(task);
     } catch(e) {
         res.status(400).send();
+        console.log("Here is where the problem is")
     }
 });
 
