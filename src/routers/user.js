@@ -1,10 +1,11 @@
 const express = require('express');
+const bcrypt = require('bcryptjs');
 const User = require('../models/user');
 
 const router = new express.Router();
 
 router.post('/users', async (req, res) => {
-
+    
     const user = new User(req.body);
 
     try {
@@ -50,7 +51,16 @@ router.patch('/users/:id', async (req, res) => {
     }
 
     try {
-        const user = await User.findByIdAndUpdate(_id, req.body, {new: true, runValidators: true});
+
+        const user = await User.findById(_id);
+
+        updates.forEach((update) => {
+            user[update] = req.body[update];
+        })
+
+        await user.save();
+
+        // const user = await User.findByIdAndUpdate(_id, req.body, {new: true, runValidators: true});
         if(!user) {
             return res.status(404).send();
         }
