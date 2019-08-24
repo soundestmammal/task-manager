@@ -33,11 +33,22 @@ app.listen(PORT, () => {
 
 const jwt = require('jsonwebtoken');
 
-const myFunction = () => {
-    const token = jwt.sign({ _id: 'abc123' }, "hereismycryptokey", { expiresIn: '5 seconds'});
-    console.log(token);
-    const data = jwt.verify(token, 'hereismycryptokey');
-    console.log(data);
+// const myFunction = () => {
+//     const token = jwt.sign({ _id: 'abc123' }, "hereismycryptokey", { expiresIn: '5 seconds'});
+//     console.log(token);
+//     const data = jwt.verify(token, 'hereismycryptokey');
+//     console.log(data);
+// }
+
+// myFunction();
+
+const pet = {
+    name: 'Luna'
 }
 
-myFunction();
+pet.toJSON = function() {
+    console.log(this);
+    return {};
+}
+
+console.log(JSON.stringify(pet));
