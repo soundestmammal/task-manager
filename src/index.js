@@ -8,13 +8,20 @@ const taskRouter = require('./routers/task');
 const app = express();
 const PORT = process.env.PORT || 3000;
 
-app.use((req, res, next) => {
-    console.log("REQUEST", req.method);
-    console.log("PATH", req.path);
+// app.use((req, res, next) => {
+//     if(req.method === "GET") {
+//         res.send("Get requests are disabled.");
+//     } else {
+//         next();
+//     }
 
-    next(); // Without this the request would never end...
-    /* If we never call next, then the route handler will never run.*/
-});
+//      // Without this the request would never end...
+//     /* If we never call next, then the route handler will never run.*/
+// });
+
+// app.use((req, res, next) => {
+//         res.status(503).send("The site is under maintenance give us some time...");
+// })
 
 app.use(express.json());
 app.use(userRouter);
