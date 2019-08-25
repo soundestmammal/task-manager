@@ -31,7 +31,28 @@ app.listen(PORT, () => {
     console.log("Server is up on port", PORT);
 });
 
-const jwt = require('jsonwebtoken');
+const Task = require('./models/task');
+const User = require('./models/user');
+
+const main = async () => {
+    const task = await Task.findById("5d61fa2cbcc5a80d6af21f08");
+    await task.populate('owner').execPopulate();
+    console.log(task.owner);
+
+
+
+    // const user = await User.findById(task.owner);
+    // console.log(user.name);
+};
+
+main();
+
+
+
+
+
+
+// const jwt = require('jsonwebtoken');
 
 // const myFunction = () => {
 //     const token = jwt.sign({ _id: 'abc123' }, "hereismycryptokey", { expiresIn: '5 seconds'});
@@ -42,13 +63,13 @@ const jwt = require('jsonwebtoken');
 
 // myFunction();
 
-const pet = {
-    name: 'Luna'
-}
+// const pet = {
+//     name: 'Luna'
+// }
 
-pet.toJSON = function() {
-    console.log(this);
-    return {};
-}
+// pet.toJSON = function() {
+//     console.log(this);
+//     return {};
+// }
 
-console.log(JSON.stringify(pet));
+// console.log(JSON.stringify(pet)); 
