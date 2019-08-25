@@ -50,7 +50,10 @@ const userSchema = new mongoose.Schema(
                 required: true,
             }
         }]
-});
+}, {
+    timestamps: true
+}
+);
 
 userSchema.virtual('tasks', { 
     ref: 'Task',
@@ -80,8 +83,6 @@ userSchema.methods.generateAuthToken = async function() {
 
 userSchema.statics.findByCredentials = async (email, password) => {
     const user = await User.findOne({ email });
-    
-    const hashed = await bcrypt.hash(password, 8);
 
     if(!user) {
         throw new Error("Unable to log in!");
