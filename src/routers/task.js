@@ -1,5 +1,6 @@
 const express = require('express');
 const Task = require('../models/task');
+const User = require('../models/user');
 const auth = require('../middleware/auth');
 const router = new express.Router();
 
@@ -18,10 +19,17 @@ router.post('/tasks', auth, async (req, res) => {
     }
 });
 
-router.get('/tasks', async (req, res) => {
+router.get('/tasks', auth, async (req, res) => {
     try {
-        tasks = await Task.find({});
-        res.send(tasks);
+        const _id = req.user._id;
+        console.log(_id);
+        const user = await User.findById(_id);
+        console.log(user);
+        await user.populate('tasks').execPopulate();
+        console.log(user.tasks);
+        
+
+        res.send(user.tasks);
     } catch(e) {
         res.status(400).send();
     } 
