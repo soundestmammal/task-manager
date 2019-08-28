@@ -25,13 +25,3 @@ const taskSchema = new mongoose.Schema(
 const Task = mongoose.model('Task', taskSchema);
 
 module.exports = Task;
-
-/*
-There are two ways, to do this...
-
-We can either have the user store the ids of the tasks, 
-
-Or 
-
-We can store the id of the user on the task data field
-*/
