@@ -1,8 +1,13 @@
 const express = require('express');
 const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
+const multer = require('multer');
 const User = require('../models/user');
 const auth = require('../middleware/auth');
+
+const upload = multer({
+    dest: 'avatars'
+});
 
 const router = new express.Router();
 
@@ -95,6 +100,10 @@ router.delete('/users/me', auth, async(req, res) => {
     } catch(e) {
         res.status(400).send();
     }
+});
+
+router.post('/users/me/avatar', upload.single('avatar'), (req, res) => {
+    res.send();
 });
 
 module.exports = router;
