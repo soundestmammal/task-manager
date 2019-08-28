@@ -6,7 +6,16 @@ const User = require('../models/user');
 const auth = require('../middleware/auth');
 
 const upload = multer({
-    dest: 'avatars'
+    dest: 'avatars',
+    limits: {
+        fileSize: 1000000
+    },
+    fileFilter(req, file, cb) {
+        if(!file.originalname.match(/\.(jpg|png|jpeg)/)) {
+            return cb(new Error("Upload a valid file type"));
+        }
+        cb(undefined, true);
+    }
 });
 
 const router = new express.Router();
@@ -101,6 +110,8 @@ router.delete('/users/me', auth, async(req, res) => {
         res.status(400).send();
     }
 });
+
+// How to restrict image size, image file type, and ... 
 
 router.post('/users/me/avatar', upload.single('avatar'), (req, res) => {
     res.send();
