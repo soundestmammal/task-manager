@@ -5,7 +5,7 @@ const multer = require('multer');
 const sharp = require('sharp');
 const User = require('../models/user');
 const auth = require('../middleware/auth');
-const { sendWelcomeEmail } = require('../emails/account');
+const { sendWelcomeEmail, sendCancelationEmail } = require('../emails/account');
 
 const upload = multer({
     limits: {
@@ -105,8 +105,10 @@ router.patch('/users/me', auth, async (req, res) => {
 });
 
 router.delete('/users/me', auth, async(req, res) => {
+    const { email, name } = req.user;
     try {
-        await req.user.remove();  
+        await req.user.remove();
+        sendCancelationEmail(email, name);
         res.send(req.user);
     } catch(e) {
         res.status(400).send();
