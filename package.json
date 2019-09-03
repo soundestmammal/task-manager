@@ -5,7 +5,9 @@
   "main": "index.js",
   "scripts": {
     "start": "node src/index.js",
-    "dev": "env-cmd ./config/dev.env nodemon src/index.js"
+    "server": "env-cmd ./config/dev.env nodemon src/index.js",
+    "client": "npm run start --prefix client",
+    "dev": "concurrently \"npm run server \" \"npm run client\""
   },
   "repository": {
     "type": "git",
@@ -21,6 +23,7 @@
   "dependencies": {
     "@sendgrid/mail": "^6.3.1",
     "bcryptjs": "^2.4.3",
+    "concurrently": "^4.1.2",
     "express": "^4.16.4",
     "jsonwebtoken": "^8.4.0",
     "mongodb": "^3.1.10",
